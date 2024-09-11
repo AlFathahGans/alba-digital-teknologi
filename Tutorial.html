@@ -1,0 +1,43 @@
+1. php artisan make:controller Api/UserController
+2. php artisan make:model PostCategory -m
+3. php artisan make:controller Api/PostCategoryController
+4. php artisan make:model Post -m
+5. php artisan make:controller Api/PostController
+6. php artisan make:model Bookmark -m
+7. php artisan make:controller Api/BookmarkController
+8. composer require spatie/laravel-medialibrary
+9. php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+10. php artisan migrate
+11. php artisan make:notification ResetPasswordNotification
+12. php artisan make:notification WelcomeEmailNotification
+13. php artisan make:notification VerifyEmailNotification
+14. php artisan make:controller Api/VerificationController
+15. php artisan make:event EmailVerified
+16. php artisan make:listener SendWelcomeEmail --event=EmailVerified
+
+php artisan make:job SendVerificationEmail
+
+
+
+php artisan event:clear
+php artisan event:list
+
+<!-- php artisan cache:table -->
+
+<!-- Update env : QUEUE_CONNECTION=database -->
+
+<!-- php artisan queue:table -->
+
+Kalau error : php artisan migrate:rollback
+
+Kalau mau hapus semua : php artisan migrate:refresh
+
+php artisan migrate
+
+php artisan migrate:status
+
+
+php artisan queue:work
+
+
+
