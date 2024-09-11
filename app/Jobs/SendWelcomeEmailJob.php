@@ -8,11 +8,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
-use App\Notifications\VerifyEmailNotification;
+use App\Notifications\WelcomeEmailNotification;
 
 use Illuminate\Support\Facades\Log;
 
-class SendVerificationEmail implements ShouldQueue
+class SendWelcomeEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -25,7 +25,7 @@ class SendVerificationEmail implements ShouldQueue
 
     public function handle()
     {
-        Log::info('Handling SendVerificationEmail job for user: ' . $this->user->email);
-        $this->user->notify(new VerifyEmailNotification());
+        Log::info('Handling SendWelcomeEmail job for user: ' . $this->user->email);
+        $this->user->notify(new WelcomeEmailNotification());
     }
 }

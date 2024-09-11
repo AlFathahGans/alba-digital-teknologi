@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 
 use App\Events\EmailVerified;
-use App\Listeners\SendWelcomeEmail;
+use App\Listeners\SendWelcomeEmailListener; // Ubah ke nama listener baru
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        EmailVerified::class => [
+            SendWelcomeEmailListener::class, // Ubah ke nama listener baru
         ],
     ];
 

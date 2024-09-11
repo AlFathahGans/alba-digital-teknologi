@@ -16,6 +16,7 @@ import ForgotPassword from '@/views/auth/ForgotPassword.vue';
 import ResetPassword from '@/views/auth/ResetPassword.vue';
 
 import EmailVerified from '@/views/auth/EmailVerified.vue';
+import EmailVerificationPending from '@/views/auth/EmailVerificationPending.vue';
 import EmailVerificationError from '@/views/auth/EmailVerificationError.vue';
 import EmailAlreadyVerified from '@/views/auth/EmailAlreadyVerified.vue';
 
@@ -69,22 +70,27 @@ const routes = [
         props: route => ({ token: route.query.token })
     },
 
-    { 
-        path: '/email-verified', 
+    {
+        path: '/email-verified',
         name: 'EmailVerified',
-        component: EmailVerified 
+        component: EmailVerified
     },
-    { 
-        path: '/email-verification-error', 
+    {
+        path: '/email-verification-pending',
+        name: 'EmailVerificationPending',
+        component: EmailVerificationPending
+    },
+    {
+        path: '/email-verification-error',
         name: 'EmailVerificationError',
-        component: EmailVerificationError 
+        component: EmailVerificationError
     },
-    { 
+    {
         path: '/email-already-verified',
-        name: 'EmailAlreadyVerified', 
-        component: EmailAlreadyVerified 
+        name: 'EmailAlreadyVerified',
+        component: EmailAlreadyVerified
     },
-    
+
 
     // BACK OFFICE
     {

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\VerificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +14,6 @@ use App\Http\Controllers\Api\VerificationController;
 */
 
 
-// api.php
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 Route::get('/{any}', function () {
     return view('layouts.app');

@@ -28,16 +28,18 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
+// api.php
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
 // Rute yang membutuhkan autentikasi
-Route::middleware('auth:sanctum')->group(function () {
-    // Logout endpoint
-    Route::post('/logout', [AuthController::class, 'logout']);
-
+Route::middleware(['auth:sanctum','verified'])->group(function () {
     // Mendapatkan informasi pengguna
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    // Logout endpoint
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     // Route User
     Route::get('/users', [UserController::class, 'index']);

@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Cache; // Import Cache facade
 
 use App\Notifications\ResetPasswordNotification;
-use App\Notifications\WelcomeEmailNotification;
-use App\Notifications\VerifyEmailNotification;
+
+use App\Jobs\SendVerificationEmail; // Import job
+use App\Notifications\WelcomeEmailNotification; // Import notifikasi
+
 use Exception;
 
 class AuthController extends Controller
@@ -49,10 +51,10 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            // Kirim email verifikasi
-            $user->notify(new VerifyEmailNotification());
+            // Dispatch job untuk mengirim email verifikasi
+            dispatch(new SendVerificationEmail($user));
 
-            // Kirim notifikasi selamat datang (opsional)
+            // Kirim notifikasi selamat datang
             $user->notify(new WelcomeEmailNotification());
 
             // Buat token untuk pengguna

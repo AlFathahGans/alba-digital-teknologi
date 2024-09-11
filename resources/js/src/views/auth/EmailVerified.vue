@@ -6,7 +6,7 @@
                     <template>
                         <div class="btn-wrapper text-center">
                             <base-alert type="success">
-                                <strong>Email berhasil diverifikasi!</strong> 
+                                <strong>Email berhasil diverifikasi!</strong>
                                 <p>
                                     Terima kasih telah memverifikasi email Anda.
                                     Anda akan dialihkan dalam
@@ -35,7 +35,7 @@ export default {
         this.countdown--;
         if (this.countdown <= 0) {
           clearInterval(interval);  // Hentikan interval jika countdown mencapai 0
-          this.$router.push('/post');  // Arahkan pengguna ke halaman /post
+          this.$router.push('/');  // Arahkan pengguna ke halaman /post
         }
       }, 1000);  // Setiap 1 detik
     }

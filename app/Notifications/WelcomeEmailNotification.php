@@ -7,50 +7,35 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeEmailNotification extends Notification
+class WelcomeEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
     public function __construct()
     {
         //
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail($notifiable)
     {
         return (new MailMessage)
             ->greeting('Selamat Datang!')
             ->line('Ini adalah isi dari email Anda.')
             ->action('Silahkan kunjungi', url('/'))
             ->line('Terima kasih telah menggunakan aplikasi kami!')
-            ->salutation('Salam, Abdul Fathah'); 
+            ->salutation('Salam, Abdul Fathah');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
+    public function toArray($notifiable)
     {
         return [
             //
         ];
     }
 }
+

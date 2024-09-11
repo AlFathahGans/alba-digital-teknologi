@@ -24,7 +24,7 @@
 
 <script>
 export default {
-    name: "EmailVerified",
+    name: "EmailAlreadyVerified",
     data() {
         return {
             countdown: 3, // Mulai dari 3 detik

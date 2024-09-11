@@ -6,7 +6,7 @@
                     <template>
                         <div class="btn-wrapper text-center">
                             <base-alert type="danger">
-                                <strong>Gagal!</strong> Maaf, terjadi kesalahan saat memverifikasi email Anda. Silakan coba lagi.
+                                <strong>Pending!</strong> Maaf, untuk saat ini proses terjeda.
                                 <p>
                                     Anda akan dialihkan ke halaman utama dalam {{ countdown }} detik...
                                 </p>
@@ -21,10 +21,10 @@
 
 <script>
 export default {
-    name: "EmailVerificationError",
+    name: "EmailVerificationPending",
     data() {
         return {
-            countdown: 3, // Mulai dari 3 detik
+            countdown: 5, // Mulai dari 5 detik
         };
     },
     mounted() {

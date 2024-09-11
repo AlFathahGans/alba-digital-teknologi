@@ -4,44 +4,45 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Verified;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
+
+use App\Events\EmailVerified; // Import event
 
 class VerificationController extends Controller
 {
     public function verify(Request $request, $id, $hash): RedirectResponse
     {
+        Log::info('Verification process started for user ID: ' . $id);
+
         $user = User::findOrFail($id);
-    
+
+        // Log email hash for debugging
+        Log::info('User email hash: ' . sha1($user->getEmailForVerification()));
+        Log::info('Provided hash: ' . $hash);
+
         if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
-            // return response()->json(['message' => 'Invalid verification link'], 400);
+            Log::warning('Email hash mismatch for user ID: ' . $id);
             return redirect('/email-verification-error');
         }
-    
+
         if ($user->hasVerifiedEmail()) {
-            // return response()->json([
-            //     'message' => 'Email already verified'
-            // ], 200);
+            Log::info('User ID ' . $id . ' already verified.');
             return redirect('/email-already-verified');
         }
-    
+
         if ($user->markEmailAsVerified()) {
-            event(new Verified($user));
+            Log::info('User ID ' . $id . ' email marked as verified.');
+            event(new EmailVerified($user)); // Memicu event setelah email diverifikasi
         }
-    
-        // return response()->json([
-        //     'message' => 'Email verified successfully'
-        // ], 200);
 
-         // Login otomatis setelah verifikasi berhasil
+        Log::info('User verification status: ' . $user->hasVerifiedEmail());
+
         Auth::login($user);
+        Log::info('User ID ' . $id . ' logged in successfully.');
 
-        return redirect('/email-verified'); 
+        return redirect('/email-verified');
     }
-    
-
 }
-

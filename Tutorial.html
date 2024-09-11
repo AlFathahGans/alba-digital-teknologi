@@ -12,11 +12,21 @@
 12. php artisan make:notification WelcomeEmailNotification
 13. php artisan make:notification VerifyEmailNotification
 14. php artisan make:controller Api/VerificationController
+
+php artisan make:middleware EnsureEmailIsVerified
+
+
 15. php artisan make:event EmailVerified
 16. php artisan make:listener SendWelcomeEmailListener --event=EmailVerified
 
 php artisan make:job SendWelcomeEmailJob
 php artisan make:job SendVerificationEmail
+
+
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 
 
 
