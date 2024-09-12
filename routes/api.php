@@ -31,13 +31,15 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // api.php
 Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 
-// Rute yang membutuhkan autentikasi
 Route::middleware(['auth:sanctum','verified'])->group(function () {
     // Mendapatkan informasi pengguna
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+}); 
 
+// Rute yang membutuhkan autentikasi
+Route::middleware(['auth:sanctum','verified'])->group(function () {
     // Logout endpoint
     Route::post('/logout', [AuthController::class, 'logout']);
 
