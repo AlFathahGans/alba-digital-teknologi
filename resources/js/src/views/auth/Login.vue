@@ -83,6 +83,11 @@ export default {
                     email: this.email,
                     password: this.password,
                 });
+
+                const token = response.data.access_token;
+                localStorage.setItem('auth_token', token);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
                 console.log('Login successful', response.data);
                 this.successMessage = 'Login successful!'; // Set pesan sukses
 
@@ -109,6 +114,6 @@ export default {
 <style>
 .section {
     min-height: 100vh;
-    background: linear-gradient(135deg, #6a1b9a, #ab47bc); 
+    background: linear-gradient(135deg, #6a1b9a, #ab47bc);
 }
 </style>

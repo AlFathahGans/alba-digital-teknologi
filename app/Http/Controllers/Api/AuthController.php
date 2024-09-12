@@ -87,17 +87,12 @@ class AuthController extends Controller
                 return response()->json(['message' => 'Invalid Login'], 401);
             }
 
-            // Cek cache untuk email pengguna
-            $cacheKey = 'user_verified_' . $request->email;
-            if (!Cache::has($cacheKey)) {
-                $user = User::where('email', $request['email'])->firstOrFail();
+            $user = User::where('email', $request['email'])->firstOrFail();
 
-                if (!$user->hasVerifiedEmail()) {
-                    return response()->json(['message' => 'Please verify your email before logging in.'], 403);
-                }
-
-                Cache::put($cacheKey, true, now()->addMinutes(10)); // Cache hasil verifikasi
+            if (!$user->hasVerifiedEmail()) {
+                return response()->json(['message' => 'Please verify your email before logging in.'], 403);
             }
+
 
             // Buat token untuk pengguna
             $token = Auth::user()->createToken('auth_token')->plainTextToken;

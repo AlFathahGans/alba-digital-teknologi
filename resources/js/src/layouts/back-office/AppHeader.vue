@@ -104,6 +104,12 @@ export default {
             // Melakukan permintaan logout
             await axios.post('/api/logout');
 
+            // Hapus token dari localStorage
+            localStorage.removeItem('auth_token');
+
+            // Hapus header default Axios
+            delete axios.defaults.headers.common['Authorization'];
+
             // Tampilkan notifikasi sukses
             this.successMessage = 'Logout successful!';
 
